@@ -6,6 +6,8 @@ const globalStyles = createGlobalStyle`
   body {
     font-family: --apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    color:${props => props.theme.mainFont};
+    background-color: ${props => props.theme.deepBg};
   }
   a {
     text-decoration: none;

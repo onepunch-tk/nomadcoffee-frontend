@@ -10,7 +10,7 @@ export enum EPathName {
     SignUp = "/signup"
 }
 
-const makeNestedPathName = (...pathList: string[]): string => {
+export const makeNestedPathName = (...pathList: string[]): string => {
     let nestedPathName = "";
     pathList.forEach(path => {
         nestedPathName = nestedPathName + path

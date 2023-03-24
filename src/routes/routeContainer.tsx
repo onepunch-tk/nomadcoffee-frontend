@@ -1,7 +1,7 @@
-import {createBrowserRouter} from "react-router-dom"
+import {createBrowserRouter, Navigate} from "react-router-dom"
 import Root from "./Root";
 import NotFound from "../screens/NotFound";
-import {EPathName, getPathWithoutSlash} from "../shared/utils";
+import {EPathName, getPathWithoutSlash, makeNestedPathName} from "../shared/utils";
 import Home from "../screens/main/Home";
 import SignUp from "../screens/auth/SignUp";
 import LogIn from "../screens/auth/LogIn";
@@ -20,6 +20,10 @@ const router = createBrowserRouter([
                 path: getPathWithoutSlash(EPathName.Account),
                 element: <Account/>,
                 children:[
+                    {
+                        index:true,
+                        element: <Navigate to={makeNestedPathName(EPathName.Account, EPathName.Login)}/>
+                    },
                     {
                       path: getPathWithoutSlash(EPathName.Login),
                       element: <LogIn/>
