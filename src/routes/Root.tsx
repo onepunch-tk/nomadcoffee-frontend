@@ -1,20 +1,24 @@
 import {Outlet, useMatch} from "react-router-dom";
 import {useReactiveVar} from "@apollo/client";
-import {isDarkModeVar, isSignInVar} from "../states/apolloVar";
-import Home from "../screens/Home";
-import SignIn from "../screens/SignIn";
+import {isDarkModeVar, isLoggedInVar} from "../states/apolloVar";
 import {ThemeProvider} from "styled-components";
 import {darkTheme, lightTheme} from "../styles/theme";
 import GlobalStyles from "../styles/globalStyles";
+import {Helmet} from "react-helmet";
+import {GetTitle} from "../shared/utils";
 
 function Root() {
-    const homeMatch = useMatch("/");
-    const isSignIn = useReactiveVar(isSignInVar);
+    const isLoggedIn = useReactiveVar(isLoggedInVar);
     const isDark = useReactiveVar(isDarkModeVar);
+    const title = GetTitle();
+
     return (
         <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
             <GlobalStyles/>
-            {homeMatch ? (isSignIn ? <Home/> : <SignIn/>) : (<Outlet/>)}
+            <Helmet>
+                <title>{`${title} | NomadCoffee`}</title>
+            </Helmet>
+            <Outlet/>
         </ThemeProvider>
     );
 }
