@@ -1,6 +1,8 @@
+import {CheckAuthValid} from "../../shared/utils";
 
 function Home() {
-  return (
+    CheckAuthValid();
+    return (
     <div>
       <h1>Home</h1>
     </div>
