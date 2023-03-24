@@ -1,8 +1,8 @@
 import {Outlet} from "react-router-dom";
-import {CheckAuthValid} from "../../shared/utils";
+import {CheckAuthValid, EPathName} from "../../shared/utils";
 
 function Account() {
-    CheckAuthValid();
+    CheckAuthValid(EPathName.Account);
     return (
       <Outlet/>
     );

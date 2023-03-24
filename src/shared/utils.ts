@@ -43,10 +43,16 @@ export const GetTitle = () => {
     return title;
 };
 
-export const CheckAuthValid = () => {
+export const CheckAuthValid = (caller: EPathName) => {
     const isLoggedIn = useReactiveVar(isLoggedInVar);
     const navigate = useNavigate();
-    useEffect(()=>{
-        return isLoggedIn ? navigate(EPathName.Home) : navigate(makeNestedPathName(EPathName.Account, EPathName.Login))
-    },[isLoggedIn, navigate]);
+    useEffect(() => {
+        if (caller === EPathName.Home) {
+            //called from Home
+            !isLoggedIn && navigate(makeNestedPathName(EPathName.Account, EPathName.Login));
+        } else {
+            //called from Account
+            isLoggedIn && navigate(EPathName.Home);
+        }
+    }, [isLoggedIn, navigate, caller]);
 }
