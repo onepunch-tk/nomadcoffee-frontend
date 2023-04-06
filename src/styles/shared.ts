@@ -33,7 +33,7 @@ export const TextInput = styled.input`
   }
 
   &::placeholder {
-    color: ${props => props.theme.subFont};
+    color: #7f8c8d;
   }
 `;
 
@@ -59,3 +59,5 @@ export const Title = styled.h2`
   font-style: italic;
   text-align: center;
 `;
+
+

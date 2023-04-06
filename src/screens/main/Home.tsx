@@ -1,7 +1,7 @@
-import {CheckAuthValid, EPathName} from "../../shared/utils";
+import {useAuthValid, EPathName} from "../../shared/utils";
 
 function Home() {
-    CheckAuthValid(EPathName.Home);
+    useAuthValid(EPathName.Home);
     return (
     <div>
       <h1>Home</h1>

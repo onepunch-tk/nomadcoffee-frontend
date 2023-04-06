@@ -43,7 +43,7 @@ export const GetTitle = () => {
     return title;
 };
 
-export const CheckAuthValid = (caller: EPathName) => {
+export const useAuthValid = (caller: EPathName) => {
     const isLoggedIn = useReactiveVar(isLoggedInVar);
     const navigate = useNavigate();
     useEffect(() => {

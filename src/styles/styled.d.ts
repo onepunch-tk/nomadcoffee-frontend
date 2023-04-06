@@ -7,6 +7,7 @@ declare module 'styled-components' {
         deepBg:string;
         shallowBg:string;
         deepAccent:string;
+        middleAccent:string;
         shallowAccent:string;
         mainFont:string;
         subFont:string
