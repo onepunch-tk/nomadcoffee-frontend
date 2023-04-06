@@ -59,5 +59,3 @@ export const Title = styled.h2`
   font-style: italic;
   text-align: center;
 `;
-
-
