@@ -18,9 +18,11 @@ interface ILogin extends InferType<typeof loginSchema> {
 }
 
 function LogIn() {
-    const {register, handleSubmit, formState: {errors}} = useForm<ILogin>({resolver: yupResolver(loginSchema)});
+    const {register, handleSubmit, formState: {errors},setError} = useForm<ILogin>({resolver: yupResolver(loginSchema)});
     const loginValid = ({username, password}:ILogin) => {
         console.log(username, password);
+        //Testing invalid error message from server
+        setError("username",{message:"testErr"});
     };
     return (
         <AuthWrapper>

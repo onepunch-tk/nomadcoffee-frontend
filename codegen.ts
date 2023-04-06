@@ -1,10 +1,10 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-    schema: '<URL_OF_YOUR_GRAPHQL_API>',
-    documents: ['src/**/*.tsx'],
+    schema: 'http://localhost:4000/graphql',
+    documents: ["src/**/*.{ts,tsx}"],
     generates: {
-        './src/__generated__/': {
+        './src/shared/graphql/__generated__/': {
             preset: 'client',
             plugins: [],
             presetConfig: {
