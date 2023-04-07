@@ -5,12 +5,12 @@ import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "../styles/theme";
 import GlobalStyles from "../styles/globalStyles";
 import { Helmet } from "react-helmet";
-import { GetTitle } from "../shared/utils";
 import { client } from "../shared/graphql/apolloClient";
+import { useTitle } from "../libs/hooks";
 
 function Root() {
   const isDark = useReactiveVar(isDarkModeVar);
-  const title = GetTitle();
+  const [title] = useTitle();
 
   return (
     <ApolloProvider client={client}>

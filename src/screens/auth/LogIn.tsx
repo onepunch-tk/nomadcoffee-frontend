@@ -1,5 +1,5 @@
 import { Form, SubmitButton, TextInput, Title } from "../../styles/shared";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { EPathName, makeNestedPathName } from "../../shared/utils";
 import {
   AuthBottomBox,
@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "../../components/ErrorMessage";
 import { useMutation } from "@apollo/client";
-import { LOGiN } from "../../shared/graphql/user/mutations";
+import { LOGIN } from "../../shared/graphql/user/mutations";
 import { isLoggedInVar } from "../../states/apolloVar";
 
 const loginSchema = object({
@@ -31,9 +31,11 @@ function LogIn() {
     formState: { errors },
     setError,
   } = useForm<ILogin>({ resolver: yupResolver(loginSchema) });
-  const [loginFn, { loading, reset }] = useMutation(LOGiN);
+  const [loginFn, { loading }] = useMutation(LOGIN);
+  const location = useLocation();
   const loginValidator = async ({ username, password }: ILogin) => {
     const { data } = await loginFn({ variables: { username, password } });
+
     if (data) {
       const {
         token,

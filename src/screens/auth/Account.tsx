@@ -1,14 +1,11 @@
-import {Outlet} from "react-router-dom";
-import {EPathName, useAuthValid} from "../../shared/utils";
-import {AuthContainer} from "../../styles/auth/shared";
+import { Outlet } from "react-router-dom";
+import { EPathName } from "../../shared/utils";
+import { AuthContainer } from "../../styles/auth/shared";
+import { useAuthValid } from "../../libs/hooks";
 
 function Account() {
-    useAuthValid(EPathName.Account);
-    return (
-        <AuthContainer>
-            <Outlet/>
-        </AuthContainer>
-    );
+  const [loading] = useAuthValid(EPathName.Account);
+  return <AuthContainer>{!loading ? <Outlet /> : null}</AuthContainer>;
 }
 
 export default Account;

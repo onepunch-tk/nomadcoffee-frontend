@@ -10,7 +10,6 @@ import Home from "../screens/main/Home";
 import SignUp from "../screens/auth/SignUp";
 import LogIn from "../screens/auth/LogIn";
 import Account from "../screens/auth/Account";
-import { isLoggedInVar } from "../states/apolloVar";
 
 const router = createBrowserRouter([
   {

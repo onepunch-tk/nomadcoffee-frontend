@@ -1,8 +1,9 @@
-import {useAuthValid, EPathName} from "../../shared/utils";
+import { EPathName } from "../../shared/utils";
+import { useAuthValid } from "../../libs/hooks";
 
 function Home() {
-    useAuthValid(EPathName.Home);
-    return (
+  const [loading] = useAuthValid(EPathName.Home);
+  return (
     <div>
       <h1>Home</h1>
     </div>

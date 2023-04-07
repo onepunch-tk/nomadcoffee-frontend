@@ -4,12 +4,14 @@ import {
   AuthWrapper,
 } from "../../styles/auth/shared";
 import { Form, SubmitButton, TextInput, Title } from "../../styles/shared";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EPathName, makeNestedPathName } from "../../shared/utils";
-import { object, string, ref, InferType } from "yup";
+import { InferType, object, ref, string } from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "../../components/ErrorMessage";
+import { useMutation } from "@apollo/client";
+import { CREATE_ACCOUNT } from "../../shared/graphql/user/mutations";
 
 const signupSchema = object({
   email: string().email().required(),
@@ -18,6 +20,7 @@ const signupSchema = object({
   confirmPassword: string()
     .required()
     .oneOf([ref("password")], "Passwords must match"),
+  name: string(),
   location: string(),
   githubUsername: string(),
 });
@@ -26,6 +29,7 @@ interface ISignup extends InferType<typeof signupSchema> {
   email: string;
   username: string;
   password: string;
+  name: string;
   location: string;
   githubUsername: string;
 }
@@ -34,17 +38,50 @@ function SignUp() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<ISignup>({ resolver: yupResolver(signupSchema) });
-  const signupValidator = ({
+  const [signupFn, { loading }] = useMutation(CREATE_ACCOUNT);
+  const navigate = useNavigate();
+  const signupValidator = async ({
     email,
     username,
     password,
+    name,
     location,
     githubUsername,
   }: ISignup) => {
-    console.log(email, username, password, location, githubUsername);
+    const { data } = await signupFn({
+      variables: {
+        email,
+        username,
+        password,
+        name,
+        location,
+        githubUsername,
+      },
+    });
+    if (data?.createAccount) {
+      const {
+        user,
+        result: { ok, error },
+      } = data.createAccount;
+
+      if (!ok) {
+        if (error?.toLowerCase().includes("username")) {
+          setError("username", { message: error }, { shouldFocus: true });
+        } else if (error?.toLowerCase().includes("email")) {
+          setError("email", { message: error }, { shouldFocus: true });
+        }
+      }
+
+      navigate(makeNestedPathName(EPathName.Account, EPathName.Login), {
+        state: { user },
+        replace: true,
+      });
+    }
   };
+
   return (
     <AuthWrapper>
       <AuthTopBox>
@@ -67,13 +104,17 @@ function SignUp() {
             placeholder={"Confirm Password"}
           />
           <ErrorMessage errors={errors.confirmPassword} />
-          <TextInput {...register("location")} placeholder={"Location"} />
+          <TextInput {...register("name")} placeholder={"Name"} />
           <TextInput
             {...register("githubUsername")}
             placeholder={"Github Username"}
           />
           <TextInput {...register("location")} placeholder={"Location"} />
-          <SubmitButton type={"submit"} value={"Sign up"} />
+          <SubmitButton
+            type={"submit"}
+            disabled={loading}
+            value={loading ? "loading" : "Sign up"}
+          />
         </Form>
       </AuthTopBox>
       <AuthBottomBox>

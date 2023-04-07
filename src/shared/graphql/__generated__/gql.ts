@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n    mutation Login($username: String!, $password: String!) {\n        login(username: $username, password: $password) {\n            token\n            result {\n                ok\n                error\n            }\n        }\n    }\n": types.LoginDocument,
+    "\n  mutation Login($username: String!, $password: String!) {\n    login(username: $username, password: $password) {\n      token\n      result {\n        ok\n        error\n      }\n    }\n  }\n": types.LoginDocument,
+    "\n  mutation CreateAccount(\n    $username: String!\n    $email: String!\n    $password: String!\n    $name: String\n    $location: String\n    $githubUsername: String!\n  ) {\n    createAccount(\n      username: $username\n      email: $email\n      password: $password\n      name: $name\n      location: $location\n      githubUsername: $githubUsername\n    ) {\n      user {\n        id\n        username\n      }\n      result {\n        ok\n        error\n      }\n    }\n  }\n": types.CreateAccountDocument,
 };
 
 /**
@@ -33,7 +34,11 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    mutation Login($username: String!, $password: String!) {\n        login(username: $username, password: $password) {\n            token\n            result {\n                ok\n                error\n            }\n        }\n    }\n"): (typeof documents)["\n    mutation Login($username: String!, $password: String!) {\n        login(username: $username, password: $password) {\n            token\n            result {\n                ok\n                error\n            }\n        }\n    }\n"];
+export function gql(source: "\n  mutation Login($username: String!, $password: String!) {\n    login(username: $username, password: $password) {\n      token\n      result {\n        ok\n        error\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Login($username: String!, $password: String!) {\n    login(username: $username, password: $password) {\n      token\n      result {\n        ok\n        error\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation CreateAccount(\n    $username: String!\n    $email: String!\n    $password: String!\n    $name: String\n    $location: String\n    $githubUsername: String!\n  ) {\n    createAccount(\n      username: $username\n      email: $email\n      password: $password\n      name: $name\n      location: $location\n      githubUsername: $githubUsername\n    ) {\n      user {\n        id\n        username\n      }\n      result {\n        ok\n        error\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation CreateAccount(\n    $username: String!\n    $email: String!\n    $password: String!\n    $name: String\n    $location: String\n    $githubUsername: String!\n  ) {\n    createAccount(\n      username: $username\n      email: $email\n      password: $password\n      name: $name\n      location: $location\n      githubUsername: $githubUsername\n    ) {\n      user {\n        id\n        username\n      }\n      result {\n        ok\n        error\n      }\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
