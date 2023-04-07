@@ -1,8 +1,8 @@
-import {FieldError} from "react-hook-form";
+import { FieldError } from "react-hook-form";
 import styled from "styled-components";
 
 interface IErrorsProps {
-    errors: FieldError | undefined;
+  errors: FieldError | undefined;
 }
 
 const ErrorText = styled.span`
@@ -11,11 +11,6 @@ const ErrorText = styled.span`
   color: red;
 `;
 
-export function ErrorMessage({errors}: IErrorsProps) {
-    console.log(errors);
-    return (
-        <>
-            {errors && <ErrorText>{`*${errors.message}!`}</ErrorText>}
-        </>
-    );
+export function ErrorMessage({ errors }: IErrorsProps) {
+  return <>{errors && <ErrorText>{`*${errors.message}!`}</ErrorText>}</>;
 }

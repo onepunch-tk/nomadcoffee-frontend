@@ -8,8 +8,8 @@ export const BaseFlex = styled.div`
 export const BaseBox = styled(BaseFlex)`
   width: 100%;
   flex-direction: column;
-  background-color: ${props => props.theme.shallowBg};
-  border: 1px solid ${props=>props.theme.border};
+  background-color: ${(props) => props.theme.shallowBg};
+  border: 1px solid ${(props) => props.theme.border};
   border-radius: 5px;
 `;
 
@@ -27,9 +27,9 @@ export const TextInput = styled.input`
   border: none;
   border-radius: 5px;
   margin: 5px 0;
-  
+
   &:focus {
-    outline-color: ${props => props.theme.deepAccent};
+    outline-color: ${(props) => props.theme.deepAccent};
   }
 
   &::placeholder {
@@ -40,20 +40,28 @@ export const TextInput = styled.input`
 export const SubmitButton = styled.input`
   border: none;
   padding: 10px 0;
-  background-color: ${props => props.theme.deepAccent};
+  background-color: ${(props) => props.theme.middleAccent};
   margin-top: 10px;
-  color: ${props=>props.theme.mainFont};
+  color: ${(props) => props.theme.mainFont};
   font-weight: 500;
   font-size: 1rem;
   border-radius: 10px;
   cursor: pointer;
-  &:focus {
-    outline-color: ${props => props.theme.deepAccent};
+  &:hover {
+    background-color: ${(props) => props.theme.deepAccent};
   }
+  &:focus {
+    outline-color: ${(props) => props.theme.deepAccent};
+  }
+  &:disabled {
+    background-color: ${(props) => props.theme.shallowAccent};
+  }
+
+  transition: all 0.2s ease-in-out;
 `;
 
 export const Title = styled.h2`
-  color: ${props => props.theme.mainFont};
+  color: ${(props) => props.theme.mainFont};
   font-size: 2rem;
   font-weight: bold;
   font-style: italic;
